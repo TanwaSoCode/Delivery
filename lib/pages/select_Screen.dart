@@ -1,4 +1,5 @@
 import 'package:delivery/pages/page_Register.dart';
+import 'package:delivery/pages/page_login.dart';
 import 'package:flutter/material.dart';
 // import 'register_screen.dart'; // import หน้า register
 
@@ -121,7 +122,12 @@ class SelectScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // TODO: ไปหน้า login
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
                     },
                     child: const Text(
                       "เข้าสู่ระบบ",

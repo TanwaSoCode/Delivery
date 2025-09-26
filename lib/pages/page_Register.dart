@@ -1,3 +1,4 @@
+import 'package:delivery/pages/page_login.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -34,7 +35,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 // หัวข้อสมัครสมาชิก (เปลี่ยนตาม role)
                 Text(
-                  widget.role == "user" ? "สมัครสมาชิก (ผู้ใช้ทั่วไป)" : "สมัครสมาชิก (ไรเดอร์)",
+                  widget.role == "user"
+                      ? "สมัครสมาชิก (ผู้ใช้ทั่วไป)"
+                      : "สมัครสมาชิก (ไรเดอร์)",
                   style: const TextStyle(
                     color: Colors.yellow,
                     fontSize: 22,
@@ -167,14 +170,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 10),
 
-                  TextField(
-                    decoration: _inputDecoration("หมายเลขบัตรประชาชน"),
-                  ),
-                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF0C3B66),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      icon: const Icon(Icons.pedal_bike, color: Colors.white),
 
-                  TextField(
-                    decoration: _inputDecoration("ทะเบียนรถ"),
+                      label: const Text(
+                        "รูปยานพาหนะ",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        // TODO: เลือกรูปภาพ
+                      },
+                    ),
                   ),
+                  const SizedBox(height: 10),
+
+                  TextField(decoration: _inputDecoration("ทะเบียนรถ")),
                   const SizedBox(height: 12),
                 ],
 
@@ -210,7 +228,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // TODO: ไปหน้า login
+                         Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                        
                       },
                       child: const Text(
                         "เข้าสู่ระบบ",

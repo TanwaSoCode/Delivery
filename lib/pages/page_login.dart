@@ -1,3 +1,5 @@
+import 'package:delivery/pages/page_Register.dart';
+import 'package:delivery/pages/select_Screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,6 +12,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  String? selectedRole; // เก็บ role ที่เลือก
+  final List<String> roles = ["ผู้ใช้ทั่วไป", "ไรเดอร์",];
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +59,34 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 15),
 
+              // Dropdown เลือก Role
+              DropdownButtonFormField<String>(
+                value: selectedRole,
+                items: roles.map((role) {
+                  return DropdownMenuItem(
+                    value: role,
+                    child: Text(role),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedRole = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: "เลือกบทบาท",
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                ),
+              ),
+              const SizedBox(height: 15),
+
               // ช่องกรอกรหัสผ่าน
               TextField(
                 controller: passwordController,
@@ -85,7 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   onPressed: () {
-                    // TODO: เขียนฟังก์ชัน login
+                    // TODO: เขียนฟังก์ชัน login พร้อม role
+                    debugPrint(
+                        "Phone: ${phoneController.text}, Password: ${passwordController.text}, Role: $selectedRole");
                   },
                   child: const Text(
                     "เข้าสู่ระบบ",
@@ -97,20 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
 
               // ลิงก์สมัครสมาชิก
-              // GestureDetector(
-              //   onTap: () {
-              //     // TODO: ไปหน้า register
-              //   },
-              //   child: const Text(
-              //     "ยังไม่มีบัญชีผู้ใช้? ",
-              //     style: TextStyle(
-              //       color: Colors.black87,
-              //       fontSize: 14,
-              //       fontWeight: FontWeight.w600,
-              //     ),
-              //   ),
-                
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -119,8 +140,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                   GestureDetector(
-                    onTap: () { 
-                      // TODO: ไปหน้า register
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SelectScreen(),
+                        ),
+                      );
                     },
                     child: const Text(
                       "สมัครสมาชิก",
@@ -134,10 +160,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ],
-            ),
           ),
         ),
-        );
-
+      ),
+    );
   }
 }
